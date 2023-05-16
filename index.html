@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.8thwall.com/web/aframe/8frame-1.0.0.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <a-scene xrweb xrfaceanchor>
+      <a-assets>
+        <a-asset-item id="model" src="chair.gltf"></a-asset-item>
+      </a-assets>
+      <a-camera id="camera" position="0 0 0"></a-camera>
+      <a-entity gltf-model="#model" scale="0.5 0.5 0.5" position="0 0 -3"></a-entity>
+    </a-scene>
+
+    <script>
+      // Получить ссылку на элемент камеры
+      const camera = document.getElementById('camera');
+
+      // Получить доступ к видеопотоку с камеры
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          const videoTracks = stream.getVideoTracks();
+          if (videoTracks.length > 0) {
+            const videoTrack = videoTracks[0];
+            const settings = videoTrack.getSettings();
+            // Здесь вы можете использовать видеопоток для дополнительных действий
+            // Например, привязать его к текстуре модели или обработать видеопоток в реальном времени
+          }
+        })
+        .catch(function (error) {
+          console.error('Ошибка доступа к камере: ', error);
+        });
+    </script>
+  </body>
+</html>
